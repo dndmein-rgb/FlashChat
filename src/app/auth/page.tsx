@@ -1,9 +1,10 @@
+import { Button } from '@/components/ui/button'
 import React from 'react'
 
 const page = () => {
   return (
     <div>
-      <img></img>
+        <Button>test</Button>
     </div>
   )
 }
