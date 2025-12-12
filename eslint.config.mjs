@@ -16,7 +16,13 @@ const eslintConfig = defineConfig([
   {
     rules: {
       "react/no-unescaped-entities": "off",
-      "@next/next/no-html-link-for-pages": "off"
+      "@next/next/no-html-link-for-pages": "off",
+      "react/no-unknown-property": ["error", { ignore: ["jsx", "global"] }],
+      "@next/next/no-img-element": "off",
+      "@typescript-eslint/no-unused-expressions": [
+  "error",
+  { "allowShortCircuit": true, "allowTernary": true }
+]
     },
   },
 ]);
