@@ -13,26 +13,22 @@ const PreferencesTab = () => {
     const [playMouseClick]=useSound("/sounds/mouse-click.mp3")
     const [playSoundOn]=useSound("/sounds/sound-on.mp3",{volume:0.3})
     const [playSoundOff]=useSound("/sounds/sound-off.mp3",{volume:0.3})
-    const [mounted, setMounted] = useState(false)
 
-    useEffect(() => {
-        setMounted(true)
-    }, [])
-  if (!mounted) return null
+
 
   return (
     <div className='flex flex-wrap gap-2 px-1 md:px-2'>
         {theme==="dark" ? (
             <Button variant={"outline"} size={'icon'} onClick={()=>{
                 setTheme("light")
-                playMouseClick()
+               soundEnabled && playMouseClick()
             }} >
                 <SunIcon className='size-[1.2rem] text-muted-foreground' />
             </Button>
         ) : (
             <Button variant={"outline"} size={'icon'} onClick={()=>{
                 setTheme("dark")
-                playMouseClick()
+                soundEnabled && playMouseClick()
             }} >
                 <MoonIcon className='size-[1.2rem] text-muted-foreground' />
             </Button>
