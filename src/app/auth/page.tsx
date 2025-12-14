@@ -30,11 +30,11 @@ const page = async () => {
 					/>
 
 					<p className='text-2xl md:text-3xl text-balance text-white/95 font-semibold'>
-						The <span className='bg-white/20 backdrop-blur-sm px-3 py-1 rounded-lg font-bold text-white shadow-medium'>ULTIMATE</span> chat app
+						The <span className='bg-red-500 backdrop-blur-sm px-3 py-1 rounded-lg font-bold text-white shadow-medium'>ULTIMATE</span> chat app
 					</p>
 
 					<p className='text-2xl md:text-3xl mb-32 text-balance text-white/95 font-semibold'>
-						You <span className='bg-white/20 backdrop-blur-sm font-bold px-3 py-1 rounded-lg text-white shadow-medium'>NEED TO</span> build
+						You <span className='bg-green-500/90 font-bold px-2 text-white rounded-lg shadow-medium'>NEED TO</span> build
 					</p>
 					<AuthButtons />
 				</div>

@@ -119,7 +119,7 @@ const Sidebar = ({ isCollapsed ,users}: sidebarProps) => {
 					)}
 					<div className='flex'>
 						<LogoutLink>
-							<Button variant="ghost" size="icon-sm" className="hover:bg-destructive/10 hover:text-destructive transition-smooth">
+							<Button variant="ghost" size="icon-sm" className="hover:bg-destructive/10 hover:text-destructive transition-smooth cursor-pointer">
 								<LogOut size={18} />
 							</Button>
               </LogoutLink>
