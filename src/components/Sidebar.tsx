@@ -1,5 +1,4 @@
 import { User } from "@/db/dummy";
-import React from "react";
 import { ScrollArea } from "./ui/scroll-area";
 import {
   Tooltip,
@@ -27,15 +26,15 @@ const Sidebar = ({ isCollapsed ,users}: sidebarProps) => {
 
   const {user}=useKindeBrowserClient();
   return (
-    <div className="group relative flex flex-col h-full gap-4 p-2 data-[collapsed=true]:p-2 max-h-full overflow-auto bg-background">
+    <div className="group relative flex flex-col h-full gap-4 p-2 max-h-full overflow-hidden bg-background">
       {!isCollapsed && (
-        <div className="flex justify-between items-center p-2">
+        <div className="flex justify-between items-center p-2 shrink-0">
           <div className="flex gap-2 items-center text-2xl">
             <p className="font-medium">Chats</p>
           </div>
         </div>
       )}
-      <ScrollArea className="gap-2 px-2 group-data-[collapsed=true]:justify-center group-data-[collapsed=true]:px-2 ">
+      <ScrollArea className="flex-1 gap-2 px-2">
         {users.map((user, idx) =>
           isCollapsed ? (
             <TooltipProvider key={idx}>
@@ -45,11 +44,11 @@ const Sidebar = ({ isCollapsed ,users}: sidebarProps) => {
                     soundEnabled && playClickSound()
                     setSelectedUser(user);
                   }} >
-                    <Avatar className="my-1 flex cursor-pointer justify-center items-center">
+                    <Avatar className="my-1 flex cursor-pointer justify-center items-center w-10 h-10">
                       <AvatarImage
                         src={user.image || "/user-placeholder.png"}
                         alt="user image"
-                        className="border-2 border-white rounded w-10 h-10 "
+                        className="w-full h-full object-cover"
                       />
                       <AvatarFallback>{user.name[0]}</AvatarFallback>
                     </Avatar>
@@ -81,32 +80,32 @@ const Sidebar = ({ isCollapsed ,users}: sidebarProps) => {
                  
               )}
             >
-              <Avatar className="flex justify-center items-center">
+              <Avatar className="flex justify-center items-center w-10 h-10 shrink-0">
                 <AvatarImage
                   src={user.image || "/user-placeholder.png"}
                   alt={"User image"}
-                  className="w-10 h-10"
+                  className="w-full h-full object-cover"
                 />
                 <AvatarFallback>{user.name[0]}</AvatarFallback>
               </Avatar>
-              <div className="flex flex-col max-w-28">
-                <span>{user.name}</span>
+              <div className="flex flex-col flex-1 min-w-0">
+                <span className="truncate">{user.name}</span>
               </div>
             </Button>
           )
         )}
       </ScrollArea>
      {/* logout section */}
-			<div className='mt-auto'>
-				<div className='flex justify-between items-center gap-2 md:px-6 py-2'>
+			<div className='shrink-0'>
+				<div className='flex justify-between items-center gap-2 px-2 py-2'>
 					{!isCollapsed && (
-						<div className='hidden md:flex gap-2 items-center '>
-							<Avatar className='flex justify-center items-center'>
+						<div className='flex gap-2 items-center'>
+							<Avatar className='flex justify-center items-center w-8 h-8 shrink-0'>
 								<AvatarImage
 									src={ user?.picture||"/user-placeholder.png"}
 									alt='avatar'
 									referrerPolicy='no-referrer'
-									className='w-8 h-8 border-2 border-white rounded-full'
+									className='w-full h-full object-cover'
 								/>
 							</Avatar>
 							<p className='font-bold'>
