@@ -1,4 +1,4 @@
-import { USERS } from "@/db/dummy";
+import { User, USERS } from "@/db/dummy";
 import React from "react";
 import { ScrollArea } from "./ui/scroll-area";
 import {
@@ -13,13 +13,19 @@ import { Button } from "./ui/button";
 import { LogOut } from "lucide-react";
 import { useSound } from "use-sound";
 import { usePreferences } from "@/store/usePreferences";
+import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import { useSelectedUser } from "@/store/useSelectedUser";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 interface sidebarProps {
   isCollapsed: boolean;
+  users:User[]
 }
-const Sidebar = ({ isCollapsed }: sidebarProps) => {
-  const selectedUser = USERS[0];
+const Sidebar = ({ isCollapsed ,users}: sidebarProps) => {
+  const {selectedUser,setSelectedUser}=useSelectedUser();
   const [playClickSound]=useSound("/sounds/mouse-click.mp3")
   const {soundEnabled}=usePreferences();
+
+  const {user}=useKindeBrowserClient();
   return (
     <div className="group relative flex flex-col h-full gap-4 p-2 data-[collapsed=true]:p-2 max-h-full overflow-auto bg-background">
       {!isCollapsed && (
@@ -30,19 +36,20 @@ const Sidebar = ({ isCollapsed }: sidebarProps) => {
         </div>
       )}
       <ScrollArea className="gap-2 px-2 group-data-[collapsed=true]:justify-center group-data-[collapsed=true]:px-2 ">
-        {USERS.map((user, idx) =>
+        {users.map((user, idx) =>
           isCollapsed ? (
             <TooltipProvider key={idx}>
               <Tooltip delayDuration={0}>
                 <TooltipTrigger asChild>
                   <div onClick={()=>{
                     soundEnabled && playClickSound()
+                    setSelectedUser(user);
                   }} >
-                    <Avatar className="my-1 flex justify-center items-center">
+                    <Avatar className="my-1 flex cursor-pointer justify-center items-center">
                       <AvatarImage
                         src={user.image || "/user-placeholder.png"}
                         alt="user image"
-                        className="border-2 border-white rounded w-10 h-10"
+                        className="border-2 border-white rounded w-10 h-10 "
                       />
                       <AvatarFallback>{user.name[0]}</AvatarFallback>
                     </Avatar>
@@ -60,7 +67,8 @@ const Sidebar = ({ isCollapsed }: sidebarProps) => {
           ) : (
             <Button
             onClick={()=>{
-                    soundEnabled && playClickSound()
+                    soundEnabled && playClickSound();
+                    setSelectedUser(user);
                   }}
               key={idx}
               variant={"grey"}
@@ -68,7 +76,9 @@ const Sidebar = ({ isCollapsed }: sidebarProps) => {
               className={cn(
                 "w-full justify-start gap-4 my-1",
                 selectedUser?.email === user.email &&
-                  "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white shrink"
+                  "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white shrink",
+                  " cursor-pointer"
+                 
               )}
             >
               <Avatar className="flex justify-center items-center">
@@ -93,20 +103,21 @@ const Sidebar = ({ isCollapsed }: sidebarProps) => {
 						<div className='hidden md:flex gap-2 items-center '>
 							<Avatar className='flex justify-center items-center'>
 								<AvatarImage
-									src={ "/user-placeholder.png"}
+									src={ user?.picture||"/user-placeholder.png"}
 									alt='avatar'
 									referrerPolicy='no-referrer'
 									className='w-8 h-8 border-2 border-white rounded-full'
 								/>
 							</Avatar>
 							<p className='font-bold'>
-								{"john"} {}
+								{user?.given_name} {user?.family_name}
 							</p>
 						</div>
 					)}
 					<div className='flex'>
-						
+						<LogoutLink>
 							<LogOut size={22} cursor={"pointer"} />
+              </LogoutLink>
 					</div>
 				</div>
 			</div>
