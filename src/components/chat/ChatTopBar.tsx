@@ -15,7 +15,7 @@ const ChatTopBar = () => {
 				</Avatar>
 				<div className="flex flex-col">
 					<span className='font-semibold text-base'>{selectedUser?.name}</span>
-					<span className='text-xs text-muted-foreground'>Active now</span>
+					
 				</div>
 			</div>
 

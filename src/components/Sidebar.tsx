@@ -45,10 +45,10 @@ const Sidebar = ({ isCollapsed ,users}: sidebarProps) => {
                       soundEnabled && playClickSound()
                       setSelectedUser(user);
                     }}
-                     className="transition-medium hover:scale-105 hover:-translate-y-0.5 cursor-pointer"
+                     className="transition-medium hover:scale-105 hover:-translate-y-0.5 cursor-pointer flex justify-center"
                   >
                     <Avatar className={cn(
-                      "my-2 flex justify-center items-center w-10 h-10 ring-2 ring-transparent transition-smooth",
+                      "my-2 flex justify-center items-center w-10 h-10 shrink-0 ring-2 ring-transparent transition-smooth",
                       selectedUser?.email === user.email && "ring-primary/40"
                     )}>
                       <AvatarImage
@@ -93,7 +93,7 @@ const Sidebar = ({ isCollapsed ,users}: sidebarProps) => {
                 <AvatarFallback>{user.name[0]}</AvatarFallback>
               </Avatar>
               <div className="flex flex-col flex-1 min-w-0">
-                <span className="truncate text-sm font-medium">{user.name}</span>
+                <span className="truncate text-sm font-medium">{user.name.length >16 ? `${user.name.slice(0,16)}...` : user.name}</span>
               </div>
             </Button>
           )
