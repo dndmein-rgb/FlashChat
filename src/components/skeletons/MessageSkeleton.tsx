@@ -2,26 +2,18 @@ import { Skeleton } from "../ui/skeleton";
 
 const MessageSkeleton = () => {
 	return (
-		<div className='p-4'>
-			<div className='flex gap-3 items-center'>
-				<div className='skeleton w-10 h-10 rounded-full shrink-0'></div>
-				<div className='flex gap-2'>
-					<Skeleton className='h-12 w-12 rounded-full' />
-					<div className='flex flex-col gap-1'>
-						<Skeleton className='w-40 h-4' />
-						<Skeleton className='w-40 h-4' />
-					</div>
+		<div className='px-6 py-3 animate-fade-in'>
+			<div className='flex gap-3 items-end mb-4 animate-slide-up'>
+				<Skeleton className='h-10 w-10 rounded-full shrink-0' />
+				<div className='flex flex-col gap-2'>
+					<Skeleton className='w-48 h-12 rounded-2xl rounded-bl-sm' />
 				</div>
 			</div>
-			<div className='flex gap-3 items-center justify-end '>
-				<div className='skeleton w-10 h-10 rounded-full shrink-0'></div>
-				<div className='flex gap-2'>
-					<div className='flex flex-col gap-1'>
-						<Skeleton className='w-40 h-4' />
-						<Skeleton className='w-40 h-4' />
-					</div>
-					<Skeleton className='h-12 w-12 rounded-full' />
+			<div className='flex gap-3 items-end justify-end animate-slide-up'>
+				<div className='flex flex-col gap-2'>
+					<Skeleton className='w-52 h-12 rounded-2xl rounded-br-sm' />
 				</div>
+				<Skeleton className='h-10 w-10 rounded-full shrink-0' />
 			</div>
 		</div>
 	);

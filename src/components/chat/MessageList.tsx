@@ -31,7 +31,7 @@ const MessageList = () => {
 	}, [messages]);
 
 	return (
-		<div ref={messageContainerRef} className='w-full overflow-y-auto overflow-x-hidden h-full flex flex-col'>
+		<div ref={messageContainerRef} className='w-full overflow-y-auto overflow-x-hidden h-full flex flex-col bg-background'>
 			{/* This component ensure that an animation is applied when items are added to or removed from the list */}
 			<AnimatePresence>
 				{!isMessagesLoading &&
@@ -39,15 +39,17 @@ const MessageList = () => {
 						<motion.div
 							key={index}
 							layout
-							initial={{ opacity: 0, scale: 1, y: 50, x: 0 }}
+							initial={{ opacity: 0, scale: 0.97, y: 20, x: 0 }}
 							animate={{ opacity: 1, scale: 1, y: 0, x: 0 }}
-							exit={{ opacity: 0, scale: 1, y: 1, x: 0 }}
+							exit={{ opacity: 0, scale: 0.97, y: -10, x: 0 }}
 							transition={{
-								opacity: { duration: 0.1 },
+								opacity: { duration: 0.2 },
+								scale: { duration: 0.2 },
+								y: { duration: 0.25, ease: [0.4, 0, 0.2, 1] },
 								layout: {
 									type: "spring",
-									bounce: 0.3,
-									duration: messages.indexOf(message) * 0.05 + 0.2,
+									bounce: 0.15,
+									duration: 0.3,
 								},
 							}}
 							style={{
@@ -55,36 +57,43 @@ const MessageList = () => {
 								originY: 0.5,
 							}}
 							className={cn(
-								"flex flex-col gap-2 p-4 whitespace-pre-wrap",
+								"flex flex-col gap-2 px-6 py-4 whitespace-pre-wrap",
 								message.senderId === currentUser?.id ? "items-end" : "items-start"
 							)}
 						>
-							<div className='flex gap-3 items-center'>
+							<div className='flex gap-3 items-end max-w-[75%]'>
 								{message.senderId === selectedUser?.id && (
-									<Avatar className='flex justify-center items-center'>
+									<Avatar className='flex justify-center items-center shrink-0 mb-1'>
 										<AvatarImage
 											src={selectedUser?.image}
 											alt='User Image'
-											className='border-2 border-white rounded-full'
+											className='rounded-full'
 										/>
 									</Avatar>
 								)}
 								{message.messageType === "text" ? (
-									<span className='bg-accent p-3 rounded-md max-w-xs'>{message.content}</span>
+									<div className={cn(
+										"px-4 py-2.5 rounded-2xl shadow-soft transition-smooth",
+										message.senderId === currentUser?.id 
+											? "bg-primary text-primary-foreground rounded-br-sm" 
+											: "bg-muted text-foreground rounded-bl-sm"
+									)}>
+										<span className='text-sm leading-relaxed'>{message.content}</span>
+									</div>
 								) : (
 									<img
 										src={message.content}
 										alt='Message Image'
-										className='border p-2 rounded h-40 md:h-52 object-cover'
+										className='rounded-2xl shadow-medium h-40 md:h-52 object-cover transition-smooth hover:shadow-strong'
 									/>
 								)}
 
 								{message.senderId === currentUser?.id && (
-									<Avatar className='flex justify-center items-center'>
+									<Avatar className='flex justify-center items-center shrink-0 mb-1'>
 										<AvatarImage
 											src={currentUser?.picture || "/user-placeholder.png"}
 											alt='User Image'
-											className='border-2 border-white rounded-full'
+											className='rounded-full'
 										/>
 									</Avatar>
 								)}

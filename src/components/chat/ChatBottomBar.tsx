@@ -90,7 +90,7 @@ const ChatBottomBar = () => {
 	}, [currentUser?.id, selectedUser?.id, queryClient, playNotificationSound, soundEnabled]);
 
 	return (
-		<div className='p-2 flex justify-between w-full items-center gap-2'>
+		<div className='p-4 flex justify-between w-full items-center gap-3 border-t border-border bg-background'>
 			{!message.trim() && (
 				<CldUploadWidget
 					signatureEndpoint={"/api/sign-cloudinary-params"}
@@ -101,11 +101,12 @@ const ChatBottomBar = () => {
 				>
 					{({ open }) => {
 						return (
-							<ImageIcon
-								size={20}
-								onClick={() => open()}
-								className='cursor-pointer text-muted-foreground'
-							/>
+							<button className='p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-smooth'>
+								<ImageIcon
+									size={20}
+									onClick={() => open()}
+								/>
+							</button>
 						);
 					}}
 				</CldUploadWidget>
@@ -153,10 +154,10 @@ const ChatBottomBar = () => {
 				>
 					<Textarea
 						autoComplete='off'
-						placeholder='Aa'
+						placeholder='Type a message...'
 						rows={1}
-						className='w-full border rounded-full flex items-center h-9 resize-none overflow-hidden
-						bg-background min-h-0'
+						className='w-full border rounded-2xl flex items-center h-11 resize-none overflow-hidden
+						bg-background min-h-0 px-4 py-3 shadow-soft focus:shadow-medium transition-smooth'
 						value={message}
 						onKeyDown={handleKeyDown}
 						onChange={(e) => {
@@ -165,7 +166,7 @@ const ChatBottomBar = () => {
 						}}
 						ref={textAreaRef}
 					/>
-					<div className='absolute right-2 bottom-0.5'>
+					<div className='absolute right-3 bottom-2'>
 						<EmojiPicker
 							onChange={(emoji) => {
 								setMessage(message + emoji);
@@ -179,23 +180,22 @@ const ChatBottomBar = () => {
 
 				{message.trim() ? (
 					<Button
-						className='h-9 w-9 dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white shrink-0'
-						variant={"ghost"}
+						className='shrink-0'
+						variant={"default"}
 						size={"icon"}
 						onClick={handleSendMessage}
 					>
-						<SendHorizontal size={20} className='text-muted-foreground' />
+						<SendHorizontal size={20} />
 					</Button>
 				) : (
 					<Button
-						className='h-9 w-9 dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white shrink-0'
+						className='shrink-0'
 						variant={"ghost"}
 						size={"icon"}
 					>
 						{!isPending && (
 							<ThumbsUp
 								size={20}
-								className='text-muted-foreground'
 								onClick={() => {
 									if (selectedUser?.id) {
 										sendMessage({ content: "👍", messageType: "text", receiverId: selectedUser.id });

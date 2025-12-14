@@ -46,17 +46,17 @@ export default async function Home() {
 	const users = await getUsers();
 
 	return (
-		<main className='flex h-screen flex-col items-center justify-center p-4 md:px-24 py-32 gap-4'>
+		<main className='flex h-screen flex-col items-center justify-center p-4 md:px-24 py-32 gap-6'>
 			<PreferencesTab />
 
-			{/* dotted bg */}
+			{/* subtle gradient background */}
 			<div
-				className='absolute top-0 z-[-2] h-screen w-screen dark:bg-[#000000] dark:bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] 
-				dark:bg-size-[20px_20px] bg-[#ffffff] bg-[radial-gradient(#00000033_1px,#ffffff_1px)] bg-size-[20px_20px]'
+				className='absolute top-0 z-[-2] h-screen w-screen dark:bg-[#0a0e27] dark:bg-[radial-gradient(#ffffff08_1px,#0a0e27_1px)] 
+				dark:bg-size-[50px_50px] bg-[#fafbfc] bg-[radial-gradient(#00000008_1px,#fafbfc_1px)] bg-size-[50px_50px]'
 				aria-hidden='true'
 			/>
 
-			<div className='z-10 border rounded-lg max-w-5xl w-full min-h-[85vh] text-sm lg:flex'>
+			<div className='z-10 max-w-5xl w-full min-h-[85vh] text-sm lg:flex'>
 				<ChatLayout defaultLayout={defaultLayout} users={users} />
 			</div>
 		</main>

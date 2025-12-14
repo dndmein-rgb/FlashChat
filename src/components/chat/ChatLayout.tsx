@@ -36,7 +36,7 @@ const ChatLayout = ({ defaultLayout = [320, 480], users }: ChatLayoutProps) => {
 	return (
 		<ResizablePanelGroup
 			direction='horizontal'
-			className='h-full items-stretch bg-background rounded-lg'
+			className='h-full items-stretch bg-card rounded-2xl shadow-strong overflow-hidden border border-border animate-scale-in'
 			onLayout={(sizes: number[]) => {
 				document.cookie = `react-resizable-panels:layout=${JSON.stringify(sizes)}; `;
 			}}
@@ -64,10 +64,10 @@ const ChatLayout = ({ defaultLayout = [320, 480], users }: ChatLayoutProps) => {
 
 			<ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
 				{!selectedUser && (
-					<div className='flex justify-center items-center h-full w-full px-10'>
-						<div className='flex flex-col justify-center items-center gap-4'>
-							<img src='/logo.png' alt='Logo' className='w-full md:w-2/3 lg:w-1/2' />
-							<p className='text-muted-foreground text-center'>Click on a chat to view the messages</p>
+					<div className='flex justify-center items-center h-full w-full px-10 animate-fade-in'>
+						<div className='flex flex-col justify-center items-center gap-6 animate-slide-up'>
+							<img src='/logo.png' alt='Logo' className='w-full md:w-2/3 lg:w-1/2 opacity-80' />
+							<p className='text-muted-foreground text-center text-base'>Select a conversation to start messaging</p>
 						</div>
 					</div>
 				)}

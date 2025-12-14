@@ -26,25 +26,31 @@ const Sidebar = ({ isCollapsed ,users}: sidebarProps) => {
 
   const {user}=useKindeBrowserClient();
   return (
-    <div className="group relative flex flex-col h-full gap-4 p-2 max-h-full overflow-hidden bg-background">
+    <div className="group relative flex flex-col h-full gap-4 p-4 max-h-full overflow-hidden bg-background border-r border-border animate-slide-up">
       {!isCollapsed && (
-        <div className="flex justify-between items-center p-2 shrink-0">
-          <div className="flex gap-2 items-center text-2xl">
-            <p className="font-medium">Chats</p>
+        <div className="flex justify-between items-center px-2 py-1 shrink-0">
+          <div className="flex gap-2 items-center">
+            <h2 className="text-lg font-semibold tracking-tight">Chats</h2>
           </div>
         </div>
       )}
-      <ScrollArea className="flex-1 gap-2 px-2">
+      <ScrollArea className="flex-1 gap-2 px-1">
         {users.map((user, idx) =>
           isCollapsed ? (
             <TooltipProvider key={idx}>
               <Tooltip delayDuration={0}>
                 <TooltipTrigger asChild>
-                  <div onClick={()=>{
-                    soundEnabled && playClickSound()
-                    setSelectedUser(user);
-                  }} >
-                    <Avatar className="my-1 flex cursor-pointer justify-center items-center w-10 h-10">
+                  <div 
+                    onClick={()=>{
+                      soundEnabled && playClickSound()
+                      setSelectedUser(user);
+                    }}
+                     className="transition-medium hover:scale-105 hover:-translate-y-0.5 cursor-pointer"
+                  >
+                    <Avatar className={cn(
+                      "my-2 flex justify-center items-center w-10 h-10 ring-2 ring-transparent transition-smooth",
+                      selectedUser?.email === user.email && "ring-primary/40"
+                    )}>
                       <AvatarImage
                         src={user.image || "/user-placeholder.png"}
                         alt="user image"
@@ -65,22 +71,20 @@ const Sidebar = ({ isCollapsed ,users}: sidebarProps) => {
             </TooltipProvider>
           ) : (
             <Button
-            onClick={()=>{
-                    soundEnabled && playClickSound();
-                    setSelectedUser(user);
-                  }}
+              onClick={()=>{
+                soundEnabled && playClickSound();
+                setSelectedUser(user);
+              }}
               key={idx}
-              variant={"grey"}
+              variant={selectedUser?.email === user.email ? "default" : "ghost"}
               size="xl"
               className={cn(
-                "w-full justify-start gap-4 my-1",
+                "w-full justify-start gap-3 my-1 cursor-pointer transition-medium hover:-translate-y-0.5",
                 selectedUser?.email === user.email &&
-                  "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white shrink",
-                  " cursor-pointer"
-                 
+                  "shadow-medium"
               )}
             >
-              <Avatar className="flex justify-center items-center w-10 h-10 shrink-0">
+              <Avatar className="flex justify-center items-center w-10 h-10 shrink-0 ring-2 ring-transparent group-hover:ring-primary/20 transition-smooth">
                 <AvatarImage
                   src={user.image || "/user-placeholder.png"}
                   alt={"User image"}
@@ -89,17 +93,17 @@ const Sidebar = ({ isCollapsed ,users}: sidebarProps) => {
                 <AvatarFallback>{user.name[0]}</AvatarFallback>
               </Avatar>
               <div className="flex flex-col flex-1 min-w-0">
-                <span className="truncate">{user.name}</span>
+                <span className="truncate text-sm font-medium">{user.name}</span>
               </div>
             </Button>
           )
         )}
       </ScrollArea>
      {/* logout section */}
-			<div className='shrink-0'>
+			<div className='shrink-0 border-t border-border pt-4'>
 				<div className='flex justify-between items-center gap-2 px-2 py-2'>
 					{!isCollapsed && (
-						<div className='flex gap-2 items-center'>
+						<div className='flex gap-2 items-center min-w-0'>
 							<Avatar className='flex justify-center items-center w-8 h-8 shrink-0'>
 								<AvatarImage
 									src={ user?.picture||"/user-placeholder.png"}
@@ -108,14 +112,16 @@ const Sidebar = ({ isCollapsed ,users}: sidebarProps) => {
 									className='w-full h-full object-cover'
 								/>
 							</Avatar>
-							<p className='font-bold'>
+							<p className='font-medium text-sm truncate'>
 								{user?.given_name} {user?.family_name}
 							</p>
 						</div>
 					)}
 					<div className='flex'>
 						<LogoutLink>
-							<LogOut size={22} cursor={"pointer"} />
+							<Button variant="ghost" size="icon-sm" className="hover:bg-destructive/10 hover:text-destructive transition-smooth">
+								<LogOut size={18} />
+							</Button>
               </LogoutLink>
 					</div>
 				</div>

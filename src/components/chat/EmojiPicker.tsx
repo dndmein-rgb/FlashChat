@@ -19,10 +19,12 @@ const EmojiPicker = ({ onChange }: EmojiPickerProps) => {
 
 	return (
 		<Popover>
-			<PopoverTrigger>
-				<SmileIcon className='h-5 w-5 text-muted-foreground hover:text-foreground transition' />
+			<PopoverTrigger asChild>
+				<button className='p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-smooth'>
+					<SmileIcon className='h-5 w-5' />
+				</button>
 			</PopoverTrigger>
-			<PopoverContent className='w-full'>
+			<PopoverContent className='w-full border-border shadow-strong'>
 				<Picker
 					emojiSize={18}
 					maxFrequentRows={1}

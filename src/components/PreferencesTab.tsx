@@ -17,31 +17,37 @@ const PreferencesTab = () => {
 
 
   return (
-    <div className='flex flex-wrap gap-2 px-1 md:px-2'>
+    <div className='flex flex-wrap gap-2 px-1 md:px-2 animate-slide-down'>
         {theme==="dark" ? (
             <Button variant={"outline"} size={'icon'} onClick={()=>{
                 setTheme("light")
                soundEnabled && playMouseClick()
-            }} >
-                <SunIcon className='size-[1.2rem] text-muted-foreground' />
+            }} 
+            className="shadow-soft hover:shadow-medium transition-smooth hover:scale-105 active:scale-95"
+            >
+                <SunIcon className='size-5' />
             </Button>
         ) : (
             <Button variant={"outline"} size={'icon'} onClick={()=>{
                 setTheme("dark")
                 soundEnabled && playMouseClick()
-            }} >
-                <MoonIcon className='size-[1.2rem] text-muted-foreground' />
+            }}
+            className="shadow-soft hover:shadow-medium transition-smooth hover:scale-105 active:scale-95"
+            >
+                <MoonIcon className='size-5' />
             </Button>
         )} 
         
          <Button variant={"outline"} size={'icon'} onClick={()=>{
             setSoundEnabled(!soundEnabled)
             soundEnabled ? playSoundOff() : playSoundOn();
-         }}  >
+         }}
+         className="shadow-soft hover:shadow-medium transition-smooth hover:scale-105 active:scale-95"
+         >
             {soundEnabled ? (
-                <Volume2Icon className='size-[1.2rem] text-muted-foreground' />
+                <Volume2Icon className='size-5' />
             ) : (
-                <VolumeX className='size-[1.2rem] text-muted-foreground'/>
+                <VolumeX className='size-5'/>
             )}
         </Button>
     </div>
